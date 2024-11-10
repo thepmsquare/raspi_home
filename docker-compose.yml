@@ -8,5 +8,5 @@ services:
     volumes:
       - ./out:/usr/share/nginx/html:ro
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./etc/letsencrypt:/etc/ssl/certs:ro
+      - ./etc/letsencrypt:/etc/letsencrypt:ro
     restart: always
