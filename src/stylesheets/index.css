@@ -19,12 +19,24 @@
 }
 .index-title {
   font-size: 8vmin;
+  color: #000000;
 }
 .index-subtitle {
   font-size: 4vmin;
+  color: #000000;
 }
 .index-title::selection,
 .index-subtitle::selection {
   background-color: #000000 !important;
   color: #00ffff !important;
+}
+.index-fab {
+  position: absolute !important;
+  bottom: 1rem;
+  right: 1rem;
+}
+.index-fab-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
