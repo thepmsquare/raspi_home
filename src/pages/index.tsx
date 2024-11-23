@@ -35,7 +35,6 @@ const IndexPage: React.FC<PageProps> = () => {
   const [greetingText, changeGreetingText] = React.useState("");
   const [isGreetDialogLoading, changeIsGreetDialogLoading] =
     React.useState(false);
-  const [appId, changeAppId] = React.useState<number | null>(null);
 
   const [snackbarState, changeSnackbarState] =
     React.useState<CustomSnackbarStateType>({
@@ -53,28 +52,13 @@ const IndexPage: React.FC<PageProps> = () => {
     }
     changeIsGreetDialogOpen(false);
   };
-  const getAppId = async () => {
-    try {
-      let appIdResponse = await utilsCommonBL.getAppIdV0(squareConfig.appName);
-      changeAppId(appIdResponse.data.main);
-    } catch (error) {
-      changeSnackbarState({
-        isOpen: true,
-        message: (error as any).message as string,
-        severity: "error",
-      });
-    }
-  };
+
   const handleGreetDialogSubmit: React.FormEventHandler = async (e) => {
     e.preventDefault();
     try {
-      if (appId === null) {
-        throw new Error("Error code: CM001");
-      }
       changeIsGreetDialogLoading(true);
       let result = await greetingCommonBL.createGreetingV0(
         true,
-        appId,
         greetingName === "" ? undefined : greetingName,
         undefined,
         greetingText === "" ? undefined : greetingText
@@ -99,9 +83,7 @@ const IndexPage: React.FC<PageProps> = () => {
     }
   };
   // useEffects
-  React.useEffect(() => {
-    getAppId();
-  }, []);
+
   // misc
 
   let greetingCommonBL = new GreetingCommonBL(
@@ -121,7 +103,6 @@ const IndexPage: React.FC<PageProps> = () => {
             aria-label="greet"
             className="index-fab"
             onClick={handleGreetDialogOpen}
-            disabled={appId === null}
           >
             <WavingHandIcon />
           </Fab>
