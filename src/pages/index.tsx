@@ -4,7 +4,7 @@ import "../stylesheets/common.css";
 import "../stylesheets/index.css";
 
 import * as React from "react";
-import { GreetingCommonBL, UtilsCommonBL } from "squarecommonblhelper";
+import { GreetingCommonBL } from "squarecommonblhelper";
 import { CustomSnackbar, CustomSnackbarStateType } from "squarecomponents";
 
 import WavingHandIcon from "@mui/icons-material/WavingHand";
@@ -57,10 +57,8 @@ const IndexPage: React.FC<PageProps> = () => {
     e.preventDefault();
     try {
       changeIsGreetDialogLoading(true);
-      let result = await greetingCommonBL.createGreetingV0(
-        true,
+      let result = await greetingCommonBL.createAnonymousGreetingV0(
         greetingName === "" ? undefined : greetingName,
-        undefined,
         greetingText === "" ? undefined : greetingText
       );
       changeIsGreetDialogLoading(false);
@@ -89,7 +87,6 @@ const IndexPage: React.FC<PageProps> = () => {
   let greetingCommonBL = new GreetingCommonBL(
     squareConfig.squareCommonBLBaseURL
   );
-  let utilsCommonBL = new UtilsCommonBL(squareConfig.squareCommonBLBaseURL);
 
   return (
     <ThemeProvider theme={theme}>
